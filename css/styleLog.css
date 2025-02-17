@@ -1,0 +1,85 @@
+*{
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+
+.cb{
+  background: blue;
+  width: 100%;
+  height: 100px;
+  padding: 20px 20px 0 20px;
+
+}
+.cb h1{
+  color: aliceblue;
+  font-size: 40px;
+  display: inline-block;
+}
+.cb a{
+  float: right;
+  margin-top: 20px;
+  font-size: 20px;
+  color: white;
+}
+.cont{
+  background: #B9E4FA;
+  width: 45%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-left:25%;
+  margin-top: 100px;
+  border-radius: 50px;
+  padding: 60px 10% 0 10%;
+}
+.cont h2{
+  text-align: center;
+  padding-bottom: 30px;
+}
+.cont hr{
+  width: 100%;
+  background: rgb(255, 255, 255);
+  height: 5px;
+  border-color: rgb(255, 255, 255);
+  border-radius: 50px;
+  margin-bottom: 30px;
+  border: 0;
+}
+.cont input{
+  height: 30px;
+  width: 100%;
+  border-radius: 50px;
+  padding-left: 15px;
+  margin-bottom: 30px;
+  border: 0;
+}
+.cont button{
+  height: 30px;
+  border-radius: 50px;
+  border: 0;
+  background: rgb(255, 255, 255);
+}
+
+.contIn ul{
+  display: flex;
+  padding-left: 5%;
+}
+.contIn li{
+  list-style: none;
+  margin: 10px;
+  font-size: 20px;
+  padding: 5px 3%;
+}
+.contIn a{
+  color: black;
+}
+.contIn ul :hover{
+  background: rgb(211, 238, 250);
+  
+}
+.contIn img{
+  width: 40%;
+  margin-left: 30%;
+  margin-top: 60px;
+}
