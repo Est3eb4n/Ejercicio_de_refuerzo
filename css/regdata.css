@@ -43,7 +43,7 @@
   height: 500px;
   margin-left: 5%;
   margin-top: 100px;
-  border-radius: 50px;
+  border-radius: 15px;
   padding: 60px 10% 0 10%;
   text-align: center;
 }
@@ -80,6 +80,6 @@
 }
 .contDt input{
   border: 0;
-  border-radius: 50px;
+  border-radius: 5px;
   padding-left: 20px;
 }
