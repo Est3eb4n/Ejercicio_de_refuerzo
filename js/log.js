@@ -1,29 +1,62 @@
-// main.js
+//*********************************************************************************************/
+//******************************** CRACION DE LA BASE DE DATOS ********************************/
+//*********************************************************************************************/
 
-import { initBD } from './db.js';
+function initBD() {
+    const openDB = window.indexedDB.open('clinica', 1);
 
-// Función para agregar un usuario
-function agregarUsuario(docMedico, nombreMedico, apellidoMedico, correoMedico, telMedico, claveMedico, repClaveMedico, cargoMedico) {
-    const openBD = window.indexedDB.open('clinica', 1);
+    openDB.onupgradeneeded = (event) => {
+        let clinicaDB = event.target.result;
 
-    openBD.onerror = () => {
+        clinicaDB.onerror = () => {
+            console.error('Error cargando la base de datos');
+        };
+        if (!clinicaDB.objectStoreNames.contains('usuario')) {
+            let table = clinicaDB.createObjectStore('usuario', { keyPath: 'docMed' });
+            table.createIndex('docMed', 'docMed', { unique: false }); // Asegurar que el documento sea único
+        }
+    };
+
+    openDB.onerror = () => {
+        console.error('Error abriendo la base de datos', event.target.error);
+    };
+
+    openDB.onsuccess = () => {
+        console.log('Base de datos abierta correctamente');
+    };
+}
+
+
+//*********************************************************************************************/
+//************************************* ADICION DE USUARIO ************************************/
+//*********************************************************************************************/
+function agregarUsuario(docMed, nombreMed, apellidoMed, correoMed, telMed, claveMed, repClaveMed, cargoMed) {
+    const openDB = window.indexedDB.open('clinica', 1);
+
+    openDB.onerror = () => {
         console.error('Error abriendo la base de datos');
     };
 
-    openBD.onsuccess = () => {
-        let clinicaBD = openBD.result;
-        const transaction = clinicaBD.transaction(['usuario'], 'readwrite');
-        const usuarioStore = transaction.objectStore('usuario');
+    openDB.onsuccess = () => {
+        let clinicaDB = openDB.result;
 
+        if (!clinicaDB) {
+            console.error('Error: La base de datos no está disponible.');
+            return;
+        } 
+
+        const transaction = clinicaDB.transaction(['usuario'], 'readwrite');
+        const usuarioStore = transaction.objectStore('usuario');
+        
         const nuevoUsuario = {
-            docMedico,
-            nombreMedico,
-            apellidoMedico,
-            correoMedico,
-            telMedico,
-            claveMedico,
-            repClaveMedico,
-            cargoMedico
+            docMed,
+            nombreMed,
+            apellidoMed,
+            correoMed,
+            telMed,
+            claveMed,
+            repClaveMed,
+            cargoMed
         };
 
         const agregarRequest = usuarioStore.add(nuevoUsuario);
@@ -58,39 +91,24 @@ const btnGuardar = document.getElementById('btnGuardar');
 
 btnGuardar.addEventListener('click', (event) => {
     event.preventDefault();
-
+    
     const frmData = new FormData(crearUser);
-
+    
     // Validar que las contraseñas coincidan
-    if (frmData.get('claveMedico') !== frmData.get('repClaveMedico')) {
+    if (frmData.get('claveMed') !== frmData.get('repClaveMed')) {
         alert('Error: Las contraseñas no coinciden.');
         return;
     }
-
-    // Validar que ningún campo esté vacío
-    if (
-        !frmData.get('docMedico') ||
-        !frmData.get('nombreMedico') ||
-        !frmData.get('apellidoMedico') ||
-        !frmData.get('correoMedico') ||
-        !frmData.get('telMedico') ||
-        !frmData.get('claveMedico') ||
-        !frmData.get('repClaveMedico') ||
-        !frmData.get('cargoMedico')
-    ) {
-        alert('Error: Todos los campos son obligatorios.');
-        return;
-    }
-
+    
     // Llamar a la función para agregar el usuario
     agregarUsuario(
-        frmData.get('docMedico'),
-        frmData.get('nombreMedico'),
-        frmData.get('apellidoMedico'),
-        frmData.get('correoMedico'),
-        frmData.get('telMedico'),
-        frmData.get('claveMedico'),
-        frmData.get('repClaveMedico'),
-        frmData.get('cargoMedico')
+        frmData.get('docMed'),
+        frmData.get('nombreMed'),
+        frmData.get('apellidoMed'),
+        frmData.get('correoMed'),
+        frmData.get('telMed'),
+        frmData.get('claveMed'),
+        frmData.get('repClaveMed'),
+        frmData.get('cargoMed')
     );
 });
