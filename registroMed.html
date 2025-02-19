@@ -27,17 +27,21 @@
   
     <hr>
     <div class="contReg">
-      <input type="text" name="docMedico" class="md" id="docMedico" placeholder="Documento">
-      <input type="text" name="nombreMedico" class="md" id="nombreMedico" placeholder="Nombre">
-      <input type="text" name="apellidoMedico" class="md" id="apellidoMedico" placeholder="Apellido">
-      <input type="text" name="correoMedico" class="md" id="correoMedico" placeholder="Correo">
-      <input type="text" name="telMedico" class="md" id="telMedico" placeholder="Telefono">
-      <input type="text" name="calveMedico" class="md" id="calveMedico" placeholder="Clave">
-      <input type="text" name="repClaveMedico" class="md" id="repClaveMedico" placeholder="Confirmar Clave">
-      <input type="text" name="cargoMedico" class="md" id="cargoMedico" placeholder="Cargo">
+      <form id="formularioMedico">
+        <input type="text" name="docMedico" class="md" id="docMedico" placeholder="Documento">
+        <input type="text" name="nombreMedico" class="md" id="nombreMedico" placeholder="Nombre">
+        <input type="text" name="apellidoMedico" class="md" id="apellidoMedico" placeholder="Apellido">
+        <input type="text" name="correoMedico" class="md" id="correoMedico" placeholder="Correo">
+        <input type="text" name="telMedico" class="md" id="telMedico" placeholder="Telefono">
+        <input type="text" name="calveMedico" class="md" id="calveMedico" placeholder="Clave">
+        <input type="text" name="repClaveMedico" class="md" id="repClaveMedico" placeholder="Confirmar Clave">
+        <input type="text" name="cargoMedico" class="md" id="cargoMedico" placeholder="Cargo">
+      </form>  
     </div>
-    <button class="btn" type="submit">GUARDAR MEDICO</button>
+    <button class="btn" id="btnGuardar" type="submit">GUARDAR MEDICO</button>
   </div>
 </section>
+<script src="js/base_datos.js"></script>
+<script src="js/log.js"></script>
 </body>
 </html>
