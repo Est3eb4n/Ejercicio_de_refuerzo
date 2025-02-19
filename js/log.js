@@ -2,6 +2,7 @@
 //******************************** CRACION DE LA BASE DE DATOS ********************************/
 //*********************************************************************************************/
 
+ const tablaUsuarios = 'usuarios'
 function initBD() {
     const openDB = window.indexedDB.open('clinica', 1);
 
@@ -11,14 +12,16 @@ function initBD() {
         clinicaDB.onerror = () => {
             console.error('Error cargando la base de datos');
         };
-        if (!clinicaDB.objectStoreNames.contains('usuario')) {
-            let table = clinicaDB.createObjectStore('usuario', { keyPath: 'docMed' });
+        if (!clinicaDB.objectStoreNames.contains(tablaUsuarios)) {
+            let table = clinicaDB.createObjectStore(tablaUsuarios, { keyPath: 'docMed' });
             table.createIndex('docMed', 'docMed', { unique: false }); // Asegurar que el documento sea único
         }
+
+        
     };
 
     openDB.onerror = () => {
-        console.error('Error abriendo la base de datos', event.target.error);
+        console.error('Error abriendo la base de datos', evet.target.error);
     };
 
     openDB.onsuccess = () => {
@@ -33,9 +36,11 @@ function initBD() {
 function agregarUsuario(docMed, nombreMed, apellidoMed, correoMed, telMed, claveMed, repClaveMed, cargoMed) {
     const openDB = window.indexedDB.open('clinica', 1);
 
+
     openDB.onerror = () => {
         console.error('Error abriendo la base de datos');
     };
+
 
     openDB.onsuccess = () => {
         let clinicaDB = openDB.result;
@@ -45,8 +50,8 @@ function agregarUsuario(docMed, nombreMed, apellidoMed, correoMed, telMed, clave
             return;
         } 
 
-        const transaction = clinicaDB.transaction(['usuario'], 'readwrite');
-        const usuarioStore = transaction.objectStore('usuario');
+        const transaction = clinicaDB.transaction([tablaUsuarios], 'readwrite');
+        const usuarioStore = transaction.objectStore(tablaUsuarios);
         
         const nuevoUsuario = {
             docMed,
@@ -83,8 +88,8 @@ function agregarUsuario(docMed, nombreMed, apellidoMed, correoMed, telMed, clave
 }
 
 // Inicializar la base de datos al cargar la página
+    
 initBD();
-
 // Capturar el formulario y el botón de guardar
 const crearUser = document.querySelector('#formularioMedico');
 const btnGuardar = document.getElementById('btnGuardar');
@@ -110,5 +115,5 @@ btnGuardar.addEventListener('click', (event) => {
         frmData.get('claveMed'),
         frmData.get('repClaveMed'),
         frmData.get('cargoMed')
-    );
-});
+        );
+    });
