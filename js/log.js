@@ -22,7 +22,7 @@ function initBD() {
             let table = clinicaDB.createObjectStore(tablaPacientes, {keyPath: 'cedulaPaciente'})
         }
         if(!clinicaDB.objectStoreNames.contains(tablaRecetas)){
-            let table = clinicaDB.createObjectStore(tablaRecetas,{keyPath: 'recteaMedica'});
+            let table = clinicaDB.createObjectStore(tablaRecetas,{keyPath: 'documentoPaciente'});
            }
     };
 

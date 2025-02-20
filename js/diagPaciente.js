@@ -22,7 +22,7 @@ function initBD() {
            let table = clinicaDB.createObjectStore(tablaPacientes, {keyPath: 'cedulaPaciente'})
        }
        if(!clinicaDB.objectStoreNames.contains(tablaRecetas)){
-        let table = clinicaDB.createObjectStore(tablaRecetas,{keyPath: 'recteaMedica'});
+        let table = clinicaDB.createObjectStore(tablaRecetas,{keyPath: 'documentoPaciente'});
        }
    };
 
@@ -39,7 +39,7 @@ function initBD() {
 //********************************** DIADNOSTICO DE PACIENTE **********************************/
 //*********************************************************************************************/
 
-function agregarReceta(cedulaPaciente, sintomasPaciente, diagnosticoPaciente, medicamentoPaciente, dosisPaciente, tratamientoPaciente){
+function agregarReceta(documentoPaciente, sintomasPaciente, diagnosticoPaciente, medicamentoPaciente, dosisPaciente, tratamientoPaciente){
     const openDB = window.indexedDB.open('clinica', 1);
 
     openDB.onerror = () => console.log('Error abriendo la base de datos');
@@ -51,38 +51,45 @@ function agregarReceta(cedulaPaciente, sintomasPaciente, diagnosticoPaciente, me
             console.error('El almacen de objetos "tablaRecetas" no existe');
             return;
         }
-        const transaction = clinicaDB.transaction([tablaRecetas], 'readwrite');
-        const recteasStore = transaction.objectStore(tablaRecetas);
-        const nuevaReceta = { cedulaPaciente, sintomasPaciente, diagnosticoPaciente, medicamentoPaciente, dosisPaciente, tratamientoPaciente }
-        const agregarRequest = recteasStore.add(nuevaReceta);
 
-        agregarRequest.onsuccess = () =>{
-            console.log('Receta medica guardad exitosamente');
+        if (!documentoPaciente) {
+            console.error('El documento del paciente no puede estar vacío');
+            return;
+        }
+
+        const transaction = clinicaDB.transaction([tablaRecetas], 'readwrite');
+        const recetasStore = transaction.objectStore(tablaRecetas);
+        const nuevaReceta = { documentoPaciente, sintomasPaciente, diagnosticoPaciente, medicamentoPaciente, dosisPaciente, tratamientoPaciente };
+        const agregarRequest = recetasStore.add(nuevaReceta);
+
+        agregarRequest.onsuccess = () => {
+            console.log('Receta medica guardada exitosamente');
         };
+
         agregarRequest.onerror = (error) => {
             if (error.target.error.name == "ConstraintError") {
-              console.log("Error: Ya existe una receta con este número de identificación.");
+                console.log("Error: Ya existe una receta con este número de identificación.");
             } else {
-              console.log("Error desconocido:", error.target.error.name);
-        }
-    }
-}
+                console.log("Error desconocido:", error.target.error.name);
+            }
+        };
+    };
 }
 
-const formularioRecetas= document.querySelector("#formularioReceta");
+const formularioRecetas = document.querySelector("#formularioReceta");
 const btnGuardarReceta = document.getElementById("btnGuardarReceta");
 
-btnGuardarReceta.addEventListener("click", (event) =>{
+btnGuardarReceta.addEventListener("click", (event) => {
     event.preventDefault();
 
-    const frmData = new FormData(agregarReceta);
+    const frmData = new FormData(formularioRecetas);
 
     agregarReceta(
-        frmData.get('cedulaPaciente'),
+        frmData.get('documentoPaciente'),
         frmData.get('sintomasPaciente'),
         frmData.get('diagnosticoPaciente'),
         frmData.get('medicamentoPaciente'),
         frmData.get('dosisPaciente'),
         frmData.get('tratamientoPaciente')
     );
-})
+});
