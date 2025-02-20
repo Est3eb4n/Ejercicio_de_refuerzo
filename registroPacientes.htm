@@ -26,14 +26,17 @@
     <h2>Registro de Pacientes</h2>
     <hr>
     <div class="contDt">
-      <input type="text" name="cedulaPaciente" id="cedulaPaciente" placeholder="Cedula">
-      <input type="text" name="nombrePaciente" id="nombrePaciente" placeholder="Nombre">
-      <input type="text" name="apellidoPaciente" id="apellidoPaciente" placeholder="Apellido">
-      <input type="text" name="fechaPaciente" id="fechaPaciente" placeholder="Fecha de nacimiento">
-      <input type="text" name="generoPaciente" id="generoPaciente" placeholder="Genero">
-      <input type="file" name="imagenPaciente" id="imagenPaciente">
+      <form id="formularioPacientes">
+        <input type="text" name="cedulaPaciente" id="cedulaPaciente" placeholder="Cedula">
+        <input type="text" name="nombrePaciente" id="nombrePaciente" placeholder="Nombre">
+        <input type="text" name="apellidoPaciente" id="apellidoPaciente" placeholder="Apellido">
+        <input type="text" name="fechaPaciente" id="fechaPaciente" placeholder="Fecha de nacimiento">
+        <input type="text" name="generoPaciente" id="generoPaciente" placeholder="Genero">
+        <input type="file" name="imagenPaciente" id="imagenPaciente">
+        <button type="submit" id="btnPaciente"> Guardar Paciente</button>
+      </form>
     </div>
-    <button type="submit"> Guardar Paciente</button>
   </div>
+  <script src="js/addPacientes.js"></script>
 </body>
 </html>

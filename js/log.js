@@ -3,6 +3,8 @@
 //*********************************************************************************************/
 
  const tablaUsuarios = 'usuarios'
+ const tablaPacientes = 'pacientes'
+ const tablaRecetas = 'recetas'
 function initBD() {
     const openDB = window.indexedDB.open('clinica', 1);
 
@@ -14,10 +16,14 @@ function initBD() {
         };
         if (!clinicaDB.objectStoreNames.contains(tablaUsuarios)) {
             let table = clinicaDB.createObjectStore(tablaUsuarios, { keyPath: 'docMed' });
-            table.createIndex('docMed', 'docMed', { unique: false }); // Asegurar que el documento sea único
         }
 
-        
+        if(!clinicaDB.objectStoreNames.contains(tablaPacientes)){
+            let table = clinicaDB.createObjectStore(tablaPacientes, {keyPath: 'cedulaPaciente'})
+        }
+        if(!clinicaDB.objectStoreNames.contains(tablaRecetas)){
+            let table = clinicaDB.createObjectStore(tablaRecetas,{keyPath: 'recteaMedica'});
+           }
     };
 
     openDB.onerror = () => {
@@ -117,3 +123,4 @@ btnGuardar.addEventListener('click', (event) => {
         frmData.get('cargoMed')
         );
     });
+
