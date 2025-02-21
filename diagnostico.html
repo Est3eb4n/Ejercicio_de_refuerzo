@@ -22,21 +22,43 @@
       </ul>
     </nav>
   </div>
-  <div class="contData">
-    <h2>Diagnostico de Paciente</h2>
-    <hr>
-    <div class="contDt">
-      <form id="formularioReceta">
-        <input type="text" name="documentoPaciente" id="documentoPaciente" placeholder="Cédula">
-        <input type="text" name="sintomasPaciente" id="sintomasPaciente" placeholder="Sintomas">
-        <input type="text" name="diagnosticoPaciente" id="diagnosticoPaciente" placeholder=" Diagnostico">
-        <input type="text" name="medicamentoPaciente" id="medicamentoPaciente" placeholder="Nombre Medicamento">
-        <input type="text" name="dosisPaciente" id="dosisPaciente" placeholder="Dosis">
-        <input type="text" name="tratamientoPaciente" id="tratamientoPaciente" placeholder="Tiempo de tratamiento">
-        <button type="submit" id="btnGuardarReceta"> Guardar Paciente</button>
-      </form>
-    </div>
-  </div>
-  <script src="js/diagPaciente.js"></script>
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Diagnóstico de Paciente</title>
+      <link rel="stylesheet" href="styles.css"> <!-- Enlaza tu archivo CSS aquí -->
+  </head>
+  <body>
+      <div class="contData">
+          <h2>Diagnóstico de Paciente</h2>
+          <hr>
+          <div class="contDt">
+              <input type="text" class="cp" name="" id="" placeholder="Cédula del Paciente">
+              <button type="submit" class="bsp" id="btnGuardarCita">Buscar</button>
+              
+              <form class="formu">
+                  <label for="sintomasPaciente">Síntomas del paciente</label>
+                  <input type="text" name="sintomasPaciente" id="sintomasPaciente">
+                  
+                  <label for="diagnosticoPaciente">Diagnóstico del paciente</label>
+                  <input type="text" name="diagnosticoPaciente" id="diagnosticoPaciente">
+              </form>
+              
+              <button type="submit">Agregar</button>
+              <table>
+                  <tr>
+                      <th>Medicamento</th>
+                      <th>Dosis</th>
+                      <th>Tiempo</th>
+                  </tr>
+                  <!-- Aquí puedes agregar más filas dinámicamente con JavaScript -->
+              </table>
+          </div>
+      </div>
+      <script src="js/diagPaciente.js"></script>
+  </body>
+  </html>
 </body>
 </html>
