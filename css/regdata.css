@@ -23,29 +23,28 @@
   color: white;
 }
 
-.contIn ul{
+.contDiagnostico ul{
   display: flex;
   padding-left: 5%;
 }
-.contIn li{
+.contDiagnostico li{
   list-style: none;
   margin: 10px;
   font-size: 20px;
   padding: 5px 3%;
 }
-.contIn a{
+.contDiagnostico a{
   color: black;
 }
 
 .contData{
   background: #B9E4FA;
   width: 90%;
-  height: 500px;
+  height: 1300px;
   margin-left: 5%;
   margin-top: 100px;
   border-radius: 15px;
   padding: 60px 10% 0 10%;
-  text-align: center;
 }
 .contData h2{
   text-align: center;
@@ -61,96 +60,81 @@
   border: 0;
 }
 
+.culaPaciente{
+  height: 40px;
+  width: 220px;
+  border-radius: 15px;
+  padding-left: 20px;
+  margin-right: 70%;
+  border: none;
+}
 
-/* Estilos generales */
-
-.contData {
+.bsp{
+  width: 150px;
+  height: 40px;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 90%;
+  border: none;
+  border-radius: 15px;
 }
-
-h2 {
-  text-align: center;
-  color: #333;
-}
-
-hr {
-  border: 0;
-  height: 1px;
-  background: #ddd;
-  margin: 10px 0;
-}
-
-.contDt {
+.formu{
   display: flex;
   flex-direction: column;
+  width: 800px;
+  margin-top: 40px;
 }
-
-.formu input {
+.formu input{
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
+  height: 60px;
+  padding: 20px;
 }
-.cp{
-  width: 25%;
-  height: 30px;
+.formu label{
+  font-size: 30px;
+  padding: 20px;
 }
-
-.bsp {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
+.agregar{
+  width: 150px;
+  height: 40px;
+  background-color: #fff;
+  float: right;
+}
+.limpiar{
+  width: 150px;
+  height: 40px;
+  background-color: #fff;
+  float: right;
+  margin-right: 20px;
+}
+.borrar{
+  width: 100%;
+  height: 40px;
+  background-color: #fff;
   float: right;
 }
 
-.bsp:hover {
-  background-color: #0056b3;
+.tabla{
+  width: 1050px;
+  background-color: rgb(84, 250, 209);
+  border: 1px solid black;
+  font-size: 30px;
+  text-align: center;
+  padding: 10px;
+  margin: 5% 10% 0% 10%;
 }
 
-.formu label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
+.tabla th{
+  border: 0.5px solid black;
+  padding: 0px 50px 0px 50px;
+  background-color: #fff;
 }
 
-.formu input {
-  width: calc(100% - 22px);
-}
-
-table {
+td{
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+  height: 50px;
+  border: 1px solid black;
+  background-color: #fff;
+  padding: 1%;
 }
-
-table th, table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-table th {
-  background-color: #f8f9fa;
-}
-
-button[type="submit"] {
-  background-color: #3542f9;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-  width: 25%;
-}
-
-button[type="submit"]:hover {
-  background-color: #218838;
+.frm{
+  width: 100%;
+  height: 100%;
 }

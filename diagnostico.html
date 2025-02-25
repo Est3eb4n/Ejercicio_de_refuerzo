@@ -12,7 +12,7 @@
     <a href="login.html"> Cerrar Sesion</a>
   </header>
 
-  <div class="contIn">
+  <div class="contDiagnostico">
     <nav>
       <ul>
         <li><a href="registroMed.html">Registrar Usuario</a></li>
@@ -35,27 +35,35 @@
           <h2>Diagnóstico de Paciente</h2>
           <hr>
           <div class="contDt">
-              <input type="text" class="cp" name="" id="" placeholder="Cédula del Paciente">
-              <button type="submit" class="bsp" id="btnGuardarCita">Buscar</button>
-              
-              <form class="formu">
-                  <label for="sintomasPaciente">Síntomas del paciente</label>
-                  <input type="text" name="sintomasPaciente" id="sintomasPaciente">
-                  
-                  <label for="diagnosticoPaciente">Diagnóstico del paciente</label>
-                  <input type="text" name="diagnosticoPaciente" id="diagnosticoPaciente">
-              </form>
-              
-              <button type="submit">Agregar</button>
-              <table>
-                  <tr>
-                      <th>Medicamento</th>
-                      <th>Dosis</th>
-                      <th>Tiempo</th>
-                  </tr>
-                  <!-- Aquí puedes agregar más filas dinámicamente con JavaScript -->
-              </table>
-          </div>
+            <input type="text" class="culaPaciente" id="culaPaciente" placeholder="Cédula del Paciente">
+            <button type="submit" class="bsp" id="btnGuardarCita">Buscar</button>
+            
+            <form class="formu">
+                <label for="sintomasPaciente">Síntomas del paciente</label>
+                <input type="text" name="sintomasPaciente" id="sintomasPaciente" placeholder="Ingrese los sintomas del paciente">
+                
+                <label for="diagnosticoPaciente">Diagnóstico del paciente</label>
+                <input type="text" name="diagnosticoPaciente" id="diagnosticoPaciente" placeholder="Ingrese el diagnostico del paciente">
+            </form>
+            
+            <button type="submit" class="agregar" id="btnAgregar">Agregar</button>
+            <button type="submit" class="limpiar" id="btnLimpiar">Limpiar</button>
+            
+            <table class="tabla" id="tablaMedicamentos">
+                <tr>
+                    <th>Medicamento</th>
+                    <th>Dosis</th>
+                    <th>Tiempo</th>
+                    <th>Acción</th>
+                </tr>
+                <tbody class="contAbla">
+                  <td><input type="text" name="" id="" class="frm"></td>
+                  <td><input type="text" name="" id="" class="frm"></td>
+                  <td><input type="text" name="" id="" class="frm"></td>
+                  <td><button type="reset" class="borrar">Borrar</button></td>
+                </tbody>
+            </table>
+        </div>
       </div>
       <script src="js/diagPaciente.js"></script>
   </body>
