@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Referencias a los elementos del DOM
     const btnAgregar = document.getElementById('btnAgregar');
     const btnLimpiar = document.getElementById('btnLimpiar');
-    const tablaMedicamentos = document.getElementsByClassName('contAbla')[0];
+    const tablaMedicamentos = document.getElementById('tablaMedicamentos').getElementsByTagName('tbody')[0];
 
     // Función para agregar una nueva fila a la tabla
     btnAgregar.addEventListener('click', function(event) {
@@ -120,13 +120,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para limpiar todos los campos de input
     btnLimpiar.addEventListener('click', function(event) {
         event.preventDefault(); // Prevenir el comportamiento por defecto del botón
-        // Seleccionar todos los inputs y establecer su valor a vacío
-        for (let i = tablaMedicamentos.children.length-1  ; i > 0;i--) {
-            tablaMedicamentos.removeChild(tablaMedicamentos.children[i]);
-        }
-        tablaMedicamentos.children[0].querySelectorAll("td>input").forEach( elemento =>{
-            elemento.value = ""
-        })
 
+        // Seleccionar todos los inputs y establecer su valor a vacío
+        const inputs = document.querySelectorAll('.contDt input');
+        inputs.forEach(input => input.value = '');
     });
 });
