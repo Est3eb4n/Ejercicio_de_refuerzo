@@ -22,48 +22,41 @@
       </ul>
     </nav>
   </div>
-  <!DOCTYPE html>
-  <html lang="es">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Diagnóstico de Paciente</title>
-      <link rel="stylesheet" href="styles.css"> <!-- Enlaza tu archivo CSS aquí -->
-  </head>
   <body>
       <div class="contData">
           <h2>Diagnóstico de Paciente</h2>
           <hr>
           <div class="contDt">
-            <input type="text" class="culaPaciente" id="culaPaciente" placeholder="Cédula del Paciente">
-            <button type="submit" class="bsp" id="btnGuardarCita">Buscar</button>
-            
-            <form class="formu">
-                <label for="sintomasPaciente">Síntomas del paciente</label>
-                <input type="text" name="sintomasPaciente" id="sintomasPaciente" placeholder="Ingrese los sintomas del paciente">
-                
-                <label for="diagnosticoPaciente">Diagnóstico del paciente</label>
-                <input type="text" name="diagnosticoPaciente" id="diagnosticoPaciente" placeholder="Ingrese el diagnostico del paciente">
-            </form>
-            
-            <button type="submit" class="agregar" id="btnAgregar">Agregar</button>
-            <button type="submit" class="limpiar" id="btnLimpiar">Limpiar</button>
-            
-            <table class="tabla" id="tablaMedicamentos">
-                <tr>
-                    <th>Medicamento</th>
-                    <th>Dosis</th>
-                    <th>Tiempo</th>
-                    <th>Acción</th>
-                </tr>
-                <tbody class="contAbla">
-                  <td><input type="text" name="" id="" class="frm"></td>
-                  <td><input type="text" name="" id="" class="frm"></td>
-                  <td><input type="text" name="" id="" class="frm"></td>
-                  <td><button type="reset" class="borrar">Borrar</button></td>
-                </tbody>
-            </table>
+            <input type="text" class="doc" id="documentoPaciente" placeholder="Cédula del Paciente">
+            <button type="submit" class="bsp" id="btnBuscarPaciente">Buscar</button>
+
+              <form class="formu">
+                  <label for="sintomasPaciente">Síntomas del paciente</label>
+                  <input type="text" name="sintomasPaciente" id="sintomasPaciente" placeholder="Ingrese los sintomas del paciente">
+
+                  <label for="diagnosticoPaciente">Diagnóstico del paciente</label>
+                  <input type="text" name="diagnosticoPaciente" id="diagnosticoPaciente" placeholder="Ingrese el diagnostico del paciente">
+              </form>
+
+              <button type="submit" class="agregar" id="btnAgregar">Agregar</button>
+              <button type="submit" class="limpiar" id="btnLimpiar">Limpiar</button>
+
+              <table class="tabla" id="tablaMedicamentos">
+                  <tr>
+                      <th>Medicamento</th>
+                      <th>Dosis</th>
+                      <th>Tiempo</th>
+                      <th>Acción</th>
+                  </tr>
+                  <tbody class="contAbla">
+                    <td><input type="text" name="" id="" class="frm"></td>
+                    <td><input type="text" name="" id="" class="frm"></td>
+                    <td><input type="text" name="" id="" class="frm"></td>
+                    <td><button type="reset" class="borrar">Borrar</button></td>
+                  </tbody>
+              </table>
         </div>
+        <button type="submit" class="bsp" id="btnGuardarDiagnostico">Guardar Diagnostico</button>
       </div>
       <script src="js/diagPaciente.js"></script>
   </body>

@@ -4,7 +4,7 @@
 
  const tablaUsuarios = 'usuarios'
  const tablaPacientes = 'pacientes'
- const tablaRecetas = 'recetas'
+ const tablaRecetas = 'citasMedicas'
 function initBD() {
     const openDB = window.indexedDB.open('clinica', 1);
 
@@ -23,6 +23,10 @@ function initBD() {
         }
         if(!clinicaDB.objectStoreNames.contains(tablaRecetas)){
             let table = clinicaDB.createObjectStore(tablaRecetas,{keyPath: 'recteaMedica'});
+
+            table.createIndex('medicamento', 'medicamento', {unique:false})
+            table.createIndex('dosis', 'dosis', {unique:false})
+            table.createIndex('tiempo', 'tiempo', {unique:false})
            }
     };
 
