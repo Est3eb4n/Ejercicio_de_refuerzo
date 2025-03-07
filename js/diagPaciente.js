@@ -45,12 +45,35 @@ function initBD() {
 //*********************************************************************************************/
 
 
-const documentoPaciente = document.getElementById('documentoPaciente')
-const btnBuscarPaciente = document.getElementById('btnBuscarPaciente')
+btnBuscarPaciente.addEventListener('click', ()=>{
+    const documentoPaciente = document.getElementById('documentoPaciente');
+    mostrarPaciente(documentoPaciente.value)
+})
 
-function mostrarPaciente(nombrePaciente, generoPaciente, edad){
+
+function mostrarPaciente( cedulaPaciente ){
     const openDB = window.indexedDB.open('clinica',1);
 
+    openDB.onerror = () => console.error('Error abriendo la base de datos');
+
+    openDB.onsuccess = () => {
+
+        const transaccion = openDB.result.transaction(['pacientes'], 'readonly');
+
+        const tablaPacientes = transaccion.objectStore('pacientes');
+
+        const datosPaciente = tablaPacientes.get(cedulaPaciente);
+
+        datosPaciente.onsuccess = function (event){
+            const datos = event.target.result;
+
+            document.getElementById('datosPaciente').innerHTML = `
+            <input type="text" value="${datos.nombrePaciente + datos.apellidoPaciente}">
+            <input type="text" value="${datos.generoPaciente}">
+            <input type="text" value="${datos.fechaPaciente}">
+        `;
+        }
+    }
     
 }
 
@@ -84,12 +107,9 @@ function agregarCita(cedulaPaciente, sintomasPaciente, diagnosticoPaciente, medi
 }
 }
 
-const formularioRecetas= document.querySelector("#formularioCitas");
-const btnGuardarReceta = document.getElementById("btnGuardarDiagnostico");
-
-btnGuardarReceta.addEventListener("click", (event) =>{
+document.getElementById("btnGuardarDiagnostico").addEventListener("click", (event) =>{
     event.preventDefault();
-
+    const formularioRecetas= document.querySelector("#formularioCitas");
     const frmData = new FormData(agregarCita);
 
     agregarCita(
