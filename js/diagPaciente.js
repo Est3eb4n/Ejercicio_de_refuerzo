@@ -68,9 +68,9 @@ function mostrarPaciente( cedulaPaciente ){
             const datos = event.target.result;
 
             document.getElementById('datosPaciente').innerHTML = `
-            <input type="text" value="${datos.nombrePaciente + datos.apellidoPaciente}">
-            <input type="text" value="${datos.generoPaciente}">
-            <input type="text" value="${datos.fechaPaciente}">
+            <p type="text" value="${datos.nombrePaciente + datos.apellidoPaciente}"></p>
+            <p type="text" value="${datos.generoPaciente}"></p>
+            <p type="text" value="${datos.fechaPaciente}"></p>
         `;
         }
     }
@@ -107,9 +107,12 @@ function agregarCita(cedulaPaciente, sintomasPaciente, diagnosticoPaciente, medi
 }
 }
 
-document.getElementById("btnGuardarDiagnostico").addEventListener("click", (event) =>{
+const formularioRecetas= document.querySelector("#formularioCitas");
+const btnGuardarReceta = document.getElementById("btnGuardarDiagnostico");
+
+btnGuardarReceta.addEventListener("click", (event) =>{
     event.preventDefault();
-    const formularioRecetas= document.querySelector("#formularioCitas");
+
     const frmData = new FormData(agregarCita);
 
     agregarCita(
