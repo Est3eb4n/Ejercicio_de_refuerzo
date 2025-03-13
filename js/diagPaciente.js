@@ -1,144 +1,154 @@
-//*********************************************************************************************/
-//******************************** CRACION DE LA BASE DE DATOS ********************************/
-//*********************************************************************************************/
+//*******************************/
+//*********** CONSTANTES Y CONFIGURACIÓN ************/
+//*******************************/
 
-const tablaUsuarios = 'usuarios'
-const tablaPacientes = 'pacientes'
-const tablaHistorial = 'historiaClinica'
-const tablaRecetas = 'citasMedicas'
+const tablaUsuarios = 'usuarios';
+const tablaPacientes = 'pacientes';
+const tablaHistorial = 'historiaClinica';
+const tablaRecetas = 'citasMedicas';
+
+//*******************************/
+//*********** INICIALIZACIÓN DE LA BASE DE DATOS **********/
+//*******************************/
+
 function initBD() {
-   const openDB = window.indexedDB.open('clinica', 1);
-
-   openDB.onupgradeneeded = (event) => {
-       let clinicaDB = event.target.result;
-
-       clinicaDB.onerror = () => {
-           console.error('Error cargando la base de datos');
-       };
-       if (!clinicaDB.objectStoreNames.contains(tablaUsuarios)) {
-           let table = clinicaDB.createObjectStore(tablaUsuarios, { keyPath: 'docMed' });
-       }
-
-       if(!clinicaDB.objectStoreNames.contains(tablaPacientes)){
-           let table = clinicaDB.createObjectStore(tablaPacientes, {keyPath: 'cedulaPaciente'})
-       }
-       if(!clinicaDB.objectStoreNames.contains(tablaRecetas)){
-        let table = clinicaDB.createObjectStore(tablaRecetas,{keyPath: 'citasMedicas'});
-        
-        table.createIndex('medicamento', 'medicamento', {unique:false})
-        table.createIndex('dosis', 'dosis', {unique:false})
-        table.createIndex('tiempo', 'tiempo', {unique:false})
-       }
-   };
-
-   openDB.onerror = () => {
-       console.error('Error abriendo la base de datos', evet.target.error);
-   };
-
-   openDB.onsuccess = () => {
-       console.log('Base de datos abierta correctamente');
-   };
-}
-
-//*********************************************************************************************/
-//********************************** DIADNOSTICO DE PACIENTE **********************************/
-//*********************************************************************************************/
-
-
-btnBuscarPaciente.addEventListener('click', ()=>{
-    const documentoPaciente = document.getElementById('documentoPaciente');
-    mostrarPaciente(documentoPaciente.value)
-})
-
-
-function mostrarPaciente( cedulaPaciente ){
-    const openDB = window.indexedDB.open('clinica',1);
-
-    openDB.onerror = () => console.error('Error abriendo la base de datos');
-
-    openDB.onsuccess = () => {
-
-        const transaccion = openDB.result.transaction(['pacientes'], 'readonly');
-
-        const tablaPacientes = transaccion.objectStore('pacientes');
-
-        const datosPaciente = tablaPacientes.get(cedulaPaciente);
-
-        datosPaciente.onsuccess = function (event){
-            const datos = event.target.result;
-
-            document.getElementById('datosPaciente').innerHTML = `
-            <p type="text" value="${datos.nombrePaciente + datos.apellidoPaciente}"></p>
-            <p type="text" value="${datos.generoPaciente}"></p>
-            <p type="text" value="${datos.fechaPaciente}"></p>
-        `;
-        }
-    }
-    
-}
-
-function agregarCita(cedulaPaciente, sintomasPaciente, diagnosticoPaciente, medicamentoPaciente, dosisPaciente, tratamientoPaciente){
     const openDB = window.indexedDB.open('clinica', 1);
 
-    openDB.onerror = () => console.log('Error abriendo la base de datos');
+    openDB.onupgradeneeded = (event) => {
+        let clinicaDB = event.target.result;
+
+        clinicaDB.onerror = () => {
+            console.error('Error cargando la base de datos');
+        };
+
+        if (!clinicaDB.objectStoreNames.contains(tablaUsuarios)) {
+            clinicaDB.createObjectStore(tablaUsuarios, { keyPath: 'docMed' });
+        }
+
+        if (!clinicaDB.objectStoreNames.contains(tablaPacientes)) {
+            clinicaDB.createObjectStore(tablaPacientes, { keyPath: 'cedulaPaciente' });
+        }
+
+        if (!clinicaDB.objectStoreNames.contains(tablaRecetas)) {
+            let table = clinicaDB.createObjectStore(tablaRecetas, { keyPath: 'documentoPaciente', autoIncrement: true });
+            table.createIndex('sintomasPaciente', 'sintomasPaciente', { unique: false });
+            table.createIndex('diagnosticoPaciente', 'diagnosticoPaciente', { unique: false });
+            table.createIndex('medicamentos', 'medicamentos', { unique: false });
+        }
+    };
+
+    openDB.onerror = () => {
+        console.error('Error abriendo la base de datos', event.target.error);
+    };
 
     openDB.onsuccess = () => {
-        let clinicaDB = openDB.result;
-        
-        if(!clinicaDB.objectStoreNames.contains(tablaRecetas)){
-            console.error('El almacen de objetos "tablaRecetas" no existe');
-            return;
-        }
-        const transaction = clinicaDB.transaction([tablaRecetas], 'readwrite');
-        const recteasStore = transaction.objectStore(tablaRecetas);
-        const nuevaReceta = { cedulaPaciente, sintomasPaciente, diagnosticoPaciente, medicamentoPaciente, dosisPaciente, tratamientoPaciente }
-        const agregarRequest = recteasStore.add(nuevaReceta);
+        console.log('Base de datos abierta correctamente');
+    };
+}
 
-        agregarRequest.onsuccess = () =>{
-            console.log('Receta medica guardad exitosamente');
-        };
-        agregarRequest.onerror = (error) => {
-            if (error.target.error.name == "ConstraintError") {
-              console.log("Error: Ya existe una receta con este número de identificación.");
-            } else {
-              console.log("Error desconocido:", error.target.error.name);
+//*******************************/
+//************ FUNCIONES DE LA BASE DE DATOS **********/
+//*******************************/
+
+async function openDatabase() {
+    return new Promise((resolve, reject) => {
+        const openDB = window.indexedDB.open('clinica', 1);
+
+        openDB.onerror = () => reject('Error abriendo la base de datos');
+        openDB.onsuccess = () => resolve(openDB.result);
+    });
+}
+
+async function mostrarPaciente(cedulaPaciente) {
+    try {
+        const clinicaDB = await openDatabase();
+        const transaccion = clinicaDB.transaction(['pacientes'], 'readonly');
+        const tablaPacientes = transaccion.objectStore('pacientes');
+        const datosPaciente = await tablaPacientes.get(cedulaPaciente);
+
+        if (datosPaciente) {
+            document.getElementById('datosPaciente').innerHTML = `
+                <p>${datosPaciente.nombrePaciente} ${datosPaciente.apellidoPaciente}</p>
+                <p>${datosPaciente.generoPaciente}</p>
+                <p>${datosPaciente.fechaPaciente}</p>
+            `;
+        } else {
+            console.log('Paciente no encontrado');
         }
+    } catch (error) {
+        console.error('Error mostrando paciente:', error);
     }
 }
+
+async function agregarCita(documentoPaciente, sintomasPaciente, diagnosticoPaciente, medicamentos) {
+    try {
+        const clinicaDB = await openDatabase();
+        const transaction = clinicaDB.transaction([tablaRecetas], 'readwrite');
+        const recetasStore = transaction.objectStore(tablaRecetas);
+        const nuevaReceta = { documentoPaciente, sintomasPaciente, diagnosticoPaciente, medicamentos };
+        const request = recetasStore.add(nuevaReceta);
+
+        request.onsuccess = () => {
+            console.log('Receta médica guardada exitosamente');
+        };
+
+        request.onerror = (error) => {
+            console.error('Error guardando la receta:', error.target.error);
+        };
+
+        transaction.oncomplete = () => {
+            console.log('Transacción completada');
+        };
+
+        transaction.onerror = () => {
+            console.error('Error en la transacción:', transaction.error);
+        };
+    } catch (error) {
+        console.error('Error en agregarCita:', error);
+    }
 }
 
-const formularioRecetas= document.querySelector("#formularioCitas");
-const btnGuardarReceta = document.getElementById("btnGuardarDiagnostico");
+//*******************************/
+//************ MANEJO DE EVENTOS DEL DOM ************/
+//*******************************/
 
-btnGuardarReceta.addEventListener("click", (event) =>{
+document.getElementById('btnBuscarPaciente').addEventListener('click', () => {
+    const documentoPaciente = document.getElementById('documentoPaciente').value;
+    mostrarPaciente(documentoPaciente);
+});
+
+document.getElementById('btnGuardarDiagnostico').addEventListener('click', (event) => {
     event.preventDefault();
+    const cedulaPaciente = document.getElementById('documentoPaciente').value;
+    const sintomasPaciente = document.getElementById('sintomasPaciente').value;
+    const diagnosticoPaciente = document.getElementById('diagnosticoPaciente').value;
 
-    const frmData = new FormData(agregarCita);
+    const medicamentos = [];
+    const filasMedicamentos = document.querySelectorAll('.contAbla tr');
+    filasMedicamentos.forEach(fila => {
+        const inputs = fila.querySelectorAll('input');
+        if (inputs.length === 3) {
+            const medicamento = inputs[0].value;
+            const dosis = inputs[1].value;
+            const tiempo = inputs[2].value;
+            if (medicamento && dosis && tiempo) {
+                medicamentos.push({ medicamento, dosis, tiempo });
+            }
+        }
+    });
 
-    agregarCita(
-        frmData.get('cedulaPaciente'),
-        frmData.get('sintomasPaciente'),
-        frmData.get('diagnosticoPaciente'),
-        frmData.get('medicamentoPaciente'),
-        frmData.get('dosisPaciente'),
-        frmData.get('tratamientoPaciente')
-    );
-})
+    agregarCita(cedulaPaciente, sintomasPaciente, diagnosticoPaciente, medicamentos);
+});
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Referencias a los elementos del DOM
+document.addEventListener('DOMContentLoaded', function () {
     const btnAgregar = document.getElementById('btnAgregar');
     const btnLimpiar = document.getElementById('btnLimpiar');
     const tablaMedicamentos = document.getElementsByClassName('contAbla')[0];
 
-    // Función para agregar una nueva fila a la tabla
-    btnAgregar.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+    btnAgregar.addEventListener('click', function (event) {
+        event.preventDefault();
 
-        // Crear una nueva fila
         const newRow = document.createElement('tr');
-
-        // Crear y agregar celdas con inputs y botón de borrar
         newRow.innerHTML = `
             <td><input type="text" class="frm"></td>
             <td><input type="text" class="frm"></td>
@@ -146,28 +156,26 @@ document.addEventListener('DOMContentLoaded', function() {
             <td><button type="button" class="borrar">Borrar</button></td>
         `;
 
-        // Agregar la nueva fila a la tabla
         tablaMedicamentos.appendChild(newRow);
 
-        // Asignar evento al botón de borrar de la nueva fila
-        newRow.querySelector('.borrar').addEventListener('click', function() {
+        newRow.querySelector('.borrar').addEventListener('click', function () {
             tablaMedicamentos.removeChild(newRow);
         });
     });
 
-    // Función para limpiar todos los campos de input
-    btnLimpiar.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevenir el comportamiento por defecto del botón
-        // Seleccionar todos los inputs y establecer su valor a vacío
-        for (let i = tablaMedicamentos.children.length-1  ; i > 0;i--) {
+    btnLimpiar.addEventListener('click', function (event) {
+        event.preventDefault();
+        for (let i = tablaMedicamentos.children.length - 1; i > 0; i--) {
             tablaMedicamentos.removeChild(tablaMedicamentos.children[i]);
         }
-        tablaMedicamentos.children[0].querySelectorAll("td>input").forEach( elemento =>{
-            elemento.value = ""
-        })
+        tablaMedicamentos.children[0].querySelectorAll("td>input").forEach(elemento => {
+            elemento.value = "";
+        });
 
-        // Seleccionar todos los inputs y establecer su valor a vacío
         const inputs = document.querySelectorAll('.contDt input');
         inputs.forEach(input => input.value = '');
     });
 });
+
+// Inicializar la base de datos al cargar la página
+initBD();
