@@ -1,27 +1,4 @@
-*{
-  margin: 0%;
-  padding: 0%;
-  box-sizing: border-box;
-}
 
-.cb{
-  background: blue;
-  width: 100%;
-  height: 100px;
-  padding: 20px 20px 0 20px;
-
-}
-.cb h1{
-  color: aliceblue;
-  font-size: 40px;
-  display: inline-block;
-}
-.cb a{
-  float: right;
-  margin-top: 20px;
-  font-size: 20px;
-  color: white;
-}
 .cont{
   background: #B9E4FA;
   width: 45%;
@@ -61,31 +38,3 @@
   background: rgb(255, 255, 255);
 }
 
-.contIn ul{
-  display: flex;
-  padding-left: 5%;
-}
-.contIn li{
-  list-style: none;
-  margin: 10px;
-  font-size: 20px;
-  padding: 5px 3%;
-}
-.contIn a{
-  color: black;
-}
-.contIn ul :hover{
-  background: rgb(211, 238, 250);
-  
-}
-.contIn img{
-  width: 40%;
-  margin-left: 30%;
-  margin-top: 60px;
-}
-.cont a{
-  width: 100%;
-  height: 100%;
-  color: black;
-  text-decoration: none;
-}

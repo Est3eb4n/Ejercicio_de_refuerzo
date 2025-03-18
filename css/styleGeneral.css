@@ -1,0 +1,77 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+  
+.cb{
+    background: #a0eecc;
+    width: 100%;
+    height: 190px;
+    padding: 20px 20px 0 20px;
+    text-align: center;
+  
+  }
+.cb img{
+    width: 290px;
+    height: 150px;
+  }
+.cb a{
+    float: right;
+    margin-top: 50px;
+    font-size: 25px;
+    color: black;
+}
+.contIn ul{
+    display: flex;
+    padding-left: 5%;
+}
+.contIn li{
+    list-style: none;
+    margin: 10px;
+    font-size: 20px;
+    padding: 5px 3%;
+}
+.contIn a{
+    color: black;
+}
+body{     
+    background-image: url("image/fondo.png");
+    background-size: cover;
+}
+
+.contIn ul{
+    display: flex;
+    padding-left: 25%;
+    height: 60px;
+    text-align: center;
+  }
+  .contIn li{
+    list-style: none;
+    margin: 10px;
+    font-size: 25px;
+    padding: 10px 3%;
+    border: 1px solid black;
+    border-radius: 15px;
+    height: 60px;
+  }
+  .contIn a{
+    color: black;
+  }
+  .contIn ul :hover{
+    background: rgb(211, 238, 250);
+    height: 60px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px grey;
+  }
+  .contIn img{
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 60px;
+  }
+  .cont a{
+    width: 100%;
+    height: 100%;
+    color: black;
+    text-decoration: none;
+  }

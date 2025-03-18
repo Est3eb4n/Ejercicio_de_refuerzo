@@ -1,42 +1,3 @@
-*{
-  margin: 0%;
-  padding: 0%;
-  box-sizing: border-box;
-}
-
-.cb{
-  background: blue;
-  width: 100%;
-  height: 100px;
-  padding: 20px 20px 0 20px;
-
-}
-.cb h1{
-  color: aliceblue;
-  font-size: 40px;
-  display: inline-block;
-}
-.cb a{
-  float: right;
-  margin-top: 20px;
-  font-size: 20px;
-  color: white;
-}
-
-.contDiagnostico ul{
-  display: flex;
-  padding-left: 5%;
-}
-.contDiagnostico li{
-  list-style: none;
-  margin: 10px;
-  font-size: 20px;
-  padding: 5px 3%;
-}
-.contDiagnostico a{
-  color: black;
-}
-
 .contData{
   background: #B9E4FA;
   width: 90%;
@@ -60,6 +21,12 @@
   border: 0;
 }
 
+.yolo{
+  display: grid;
+  grid-template-columns: 125vh 25vh;
+  grid-template-rows: 50px;
+}
+
 .doc{
   height: 40px;
   width: 220px;
@@ -69,10 +36,20 @@
   border: none;
 }
 
-.bsp{
+.btnBuscarPaciente{
   width: 150px;
   height: 40px;
   background-color: #fff;
+  border: none;
+  border-radius: 15px;
+}
+
+.btnGuardarDiag{
+  width: 150px;
+  height: 40px;
+  background-color: #fff;
+  margin-top: 150px;
+  margin-left: 40%;
   border: none;
   border-radius: 15px;
 }
@@ -81,6 +58,7 @@
   flex-direction: column;
   width: 800px;
   margin-top: 40px;
+  margin-bottom: 30px;
 }
 .formu input{
   width: 100%;
@@ -113,12 +91,12 @@
 
 .tabla{
   width: 1050px;
-  background-color: rgb(84, 250, 209);
+  background-color: 0;
   border: 1px solid black;
   font-size: 30px;
   text-align: center;
   padding: 10px;
-  margin: 5% 10% 0% 10%;
+  margin: 7% 10% 0% 10%;
 }
 
 .tabla th{
